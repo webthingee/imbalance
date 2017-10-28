@@ -8,25 +8,24 @@ public class GearMovement : MonoBehaviour
     public bool isRight;
     public float yBuffer = 0.5f;
     public float xBuffer = 0.5f;
-    public GameObject handleImage;
+    public GameObject handleImage; // for rotation needs
 
     private GameManager gm;
     private float moveSpeed;
     private float rotationSpeed;
     private float spinSensitivity;
-
     private float isMovingX = 0;
     private float isMovingY = 0;
 
-    void Awake()
+    void Awake ()
     {
         gm = FindObjectOfType<GameManager>();
-        moveSpeed = gm.moveSpeed;
-        rotationSpeed = gm.rotationSpeed;
-        spinSensitivity = gm.spinSensitivity;
+        moveSpeed = gm.GearMoveSpeed;
+        rotationSpeed = gm.GearRotationSpeed;
+        spinSensitivity = gm.GearSpinSensitivity;
     }
 
-    void Update()
+    void Update ()
     {
         // Moving the container, which is selected as right or not
         if (isRight)
@@ -37,25 +36,26 @@ public class GearMovement : MonoBehaviour
         {
             MoveLeftHandle();
         }
-
+        // Touch Input
         TouchControlls();
-
+        // Execute vertical movement
         StartCoroutine(IsMoving());
+        // Execute rotation
         RotateWithMovement();
     }
 
-    Vector3 TopLeft()
+    Vector3 TopLeft ()
     {
         return Camera.main.ScreenToWorldPoint(new Vector3(0, Camera.main.pixelHeight, 0));
         //http://answers.unity3d.com/questions/501893/calculating-2d-camera-bounds.html
     }
 
-    Vector3 BottomLeft()
+    Vector3 BottomLeft ()
     {
         return Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
     }
 
-    void KeepInBounds()
+    void KeepInBounds ()
     {
         float stopAtTop = TopLeft().y - yBuffer;
         float stopAtBottom = BottomLeft().y + yBuffer;
@@ -82,7 +82,7 @@ public class GearMovement : MonoBehaviour
         }
     }
 
-    void MoveLeftHandle()
+    void MoveLeftHandle ()
     {
         float _hori = Input.GetAxisRaw("HorizontalLeft");
         float _vert = Input.GetAxisRaw("VerticalLeft");
@@ -95,7 +95,7 @@ public class GearMovement : MonoBehaviour
         KeepInBounds();
     }
 
-    void MoveRightHandle()
+    void MoveRightHandle ()
     {
         float _hori = Input.GetAxis("HorizontalRight");
         float _vert = Input.GetAxis("VerticalRight");
@@ -108,7 +108,7 @@ public class GearMovement : MonoBehaviour
         KeepInBounds();
     }
 
-    void RotateWithMovement()
+    void RotateWithMovement ()
     {
         // Rotate the image, not the parent container
         if (isMovingY > spinSensitivity)
@@ -121,7 +121,7 @@ public class GearMovement : MonoBehaviour
         }
     }
 
-    IEnumerator IsMoving()
+    IEnumerator IsMoving ()
     {
         Vector3 _startPos = transform.position;
         yield return new WaitForSeconds(.1f);
@@ -131,7 +131,7 @@ public class GearMovement : MonoBehaviour
         isMovingY = _finalPos.y - _startPos.y;
     }
 
-    void TouchControlls()
+    void TouchControlls ()
     {
         //Touch Touch = Input.GetTouch(0);
         Touch[] Touches = Input.touches;

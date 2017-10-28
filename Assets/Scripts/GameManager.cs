@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    /* @TODO: change these to private */
-    public float moveSpeed = 5f;
-    public float rotationSpeed = 2f;
-    public float yLimiter;
-    [Range(0, 1)] public float spinSensitivity;
+    [SerializeField] private float gearMoveSpeed = 5f;
+    [SerializeField] private float gearRotationSpeed = 2f;
+    [SerializeField] [Range(0, 1)] private float gearSpinSensitivity;
 
-	// Use this for initialization
-	void Start () {
-		print("game started");
+	public float GearMoveSpeed
+	{
+		get { return gearMoveSpeed; }
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+    public float GearRotationSpeed
+    {
+        get { return gearRotationSpeed; }
+    }
+
+    public float GearSpinSensitivity
+    {
+        get { return gearSpinSensitivity; }
+    }
+
+	void Start () 
+	{
+		print("game started");
 	}
 }
