@@ -11,16 +11,19 @@ public class GameManager : MonoBehaviour {
 	public float GearMoveSpeed
 	{
 		get { return gearMoveSpeed; }
+		set { gearMoveSpeed = value; }
 	}
 
     public float GearRotationSpeed
     {
         get { return gearRotationSpeed; }
+        set { gearRotationSpeed = value; }
     }
 
     public float GearSpinSensitivity
     {
         get { return gearSpinSensitivity; }
+        set { gearSpinSensitivity = value; }
     }
 
 	void Start () 
