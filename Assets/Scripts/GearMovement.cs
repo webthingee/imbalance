@@ -14,7 +14,7 @@ public class GearMovement : MonoBehaviour
     private float moveSpeed;
     private float rotationSpeed;
     private float spinSensitivity;
-    private float isMovingX = 0;
+    //private float isMovingX = 0;
     private float isMovingY = 0;
 
     void Awake ()
@@ -127,7 +127,7 @@ public class GearMovement : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         Vector3 _finalPos = transform.position;
 
-        isMovingX = _finalPos.x - _startPos.x;
+        //isMovingX = _finalPos.x - _startPos.x;
         isMovingY = _finalPos.y - _startPos.y;
     }
 
