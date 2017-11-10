@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GearMovement : MonoBehaviour
 {
-
     public bool isRight;
     public float yBuffer = 0.5f;
     public float xBuffer = 0.5f;
