@@ -37,7 +37,7 @@ public class GearMovement : MonoBehaviour
             MoveLeftHandle();
         }
         // Touch Input
-        TouchControlls();
+        TouchControl();
         // Execute vertical movement
         StartCoroutine(IsMoving());
         // Execute rotation
@@ -131,7 +131,7 @@ public class GearMovement : MonoBehaviour
         isMovingY = _finalPos.y - _startPos.y;
     }
 
-    void TouchControlls ()
+    void TouchControl ()
     {
         //Touch Touch = Input.GetTouch(0);
         Touch[] Touches = Input.touches;
