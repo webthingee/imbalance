@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BeachBallCtrl : MonoBehaviour 
 {
@@ -12,10 +13,14 @@ public class BeachBallCtrl : MonoBehaviour
         beachBallrb = GetComponent<Rigidbody2D>();
     }
 
-	void Update () {
+	void FixedUpdate () {
 		if (is3D) {
 			Add3DRotation();
 		}
+                
+        if (transform.position.y <= GameManager.GetBottomLeft.y) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
 	}
 
 	void Add3DRotation () {

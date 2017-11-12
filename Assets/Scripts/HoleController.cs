@@ -8,7 +8,13 @@ public class HoleController : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		Debug.Log("FALL");
+		if (transform.tag == "Goal")
+		{
+			ExecuteGoal();
+		}
+		if (transform.tag == "Hole") {
+			ExecuteHole();
+		}
 		// get and disable the collider on the line
 		GameObject.Find("Line").GetComponent<EdgeCollider2D>().enabled = false;
 		// set the player transform
@@ -28,4 +34,14 @@ public class HoleController : MonoBehaviour {
 		
 		plyer.position = new Vector3(plyer.transform.position.x, plyer.transform.position.y, 5);
 	}
+
+    void ExecuteGoal()
+    {
+        Debug.Log("WIN!");
+    }
+    
+	void ExecuteHole()
+    {
+        Debug.Log("FAIL!");
+    }
 }

@@ -10,7 +10,9 @@ public class GearMovement : MonoBehaviour
     public GameObject handleImage; // for rotation needs
 
     private GameManager gm;
+    private float gearStart;
     private float moveSpeed;
+    private float mobileMoveSpeed;
     private float rotationSpeed;
     private float spinSensitivity;
     //private float isMovingX = 0;
@@ -19,12 +21,19 @@ public class GearMovement : MonoBehaviour
     void Awake ()
     {
         gm = FindObjectOfType<GameManager>();
+        gearStart = gm.gearStartPosition;
         moveSpeed = gm.GearMoveSpeed;
+        mobileMoveSpeed = gm.MobileMoveSpeed;
         rotationSpeed = gm.GearRotationSpeed;
         spinSensitivity = gm.GearSpinSensitivity;
+
+        // if (isRight)
+        // {
+            transform.position = new Vector3 (transform.position.x, gearStart, transform.position.z);
+        // }
     }
 
-    void Update ()
+    void FixedUpdate ()
     {
         // Moving the container, which is selected as right or not
         if (isRight)
@@ -43,22 +52,11 @@ public class GearMovement : MonoBehaviour
         RotateWithMovement();
     }
 
-    Vector3 TopLeft ()
-    {
-        return Camera.main.ScreenToWorldPoint(new Vector3(0, Camera.main.pixelHeight, 0));
-        //http://answers.unity3d.com/questions/501893/calculating-2d-camera-bounds.html
-    }
-
-    Vector3 BottomLeft ()
-    {
-        return Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
-    }
-
     void KeepInBounds ()
     {
-        float stopAtTop = TopLeft().y - yBuffer;
-        float stopAtBottom = BottomLeft().y + yBuffer;
-        float stopAtSide = TopLeft().x + xBuffer;
+        float stopAtTop = GameManager.GetTopLeft.y - yBuffer;
+        float stopAtBottom = GameManager.GetBottomLeft.y + yBuffer;
+        float stopAtSide = GameManager.GetTopLeft.x + xBuffer;
 
         if (isRight)
         {
@@ -143,12 +141,12 @@ public class GearMovement : MonoBehaviour
 
                 if (realWorldPos.y > transform.position.y && realWorldPos.x < -7)
                 {
-                    transform.Translate(0, 0.75f * Time.deltaTime * moveSpeed, 0);
+                    transform.Translate(0, 0.75f * Time.deltaTime * mobileMoveSpeed, 0);
                 }
 
                 if (realWorldPos.y < transform.position.y && realWorldPos.x < -7)
                 {
-                    transform.Translate(0, -0.75f * Time.deltaTime * moveSpeed, 0);
+                    transform.Translate(0, -0.75f * Time.deltaTime * mobileMoveSpeed, 0);
                 }
             }
 
@@ -159,12 +157,12 @@ public class GearMovement : MonoBehaviour
 
                 if (realWorldPos.y > transform.position.y && realWorldPos.x > 7)
                 {
-                    transform.Translate(0, 0.75f * Time.deltaTime * moveSpeed, 0);
+                    transform.Translate(0, 0.75f * Time.deltaTime * mobileMoveSpeed, 0);
                 }
 
                 if (realWorldPos.y < transform.position.y && realWorldPos.x > 7)
                 {
-                    transform.Translate(0, -0.75f * Time.deltaTime * moveSpeed, 0);
+                    transform.Translate(0, -0.75f * Time.deltaTime * mobileMoveSpeed, 0);
                 }
             }
         }
