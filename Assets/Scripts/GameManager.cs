@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour 
 {
@@ -63,6 +64,11 @@ public class GameManager : MonoBehaviour
         topLeft = TopLeft();
         bottomLeft = BottomLeft();
         GameObject.Find("Table").GetComponent<TableManager>().SetTableSize();
+    }
+
+    void LoadNewLevel (string level)
+    {
+        SceneManager.LoadScene("Level_A_" + GameStatus.currentLevel + 0.1f);
     }
 
     Vector3 TopLeft()

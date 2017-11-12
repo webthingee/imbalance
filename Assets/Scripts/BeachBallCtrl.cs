@@ -17,9 +17,10 @@ public class BeachBallCtrl : MonoBehaviour
 		if (is3D) {
 			Add3DRotation();
 		}
-                
+
         if (transform.position.y <= GameManager.GetBottomLeft.y) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //@TODO move this to game manager
+            SceneManager.LoadScene("Level_A_" + GameStatus.currentLevel);
         }
 	}
 

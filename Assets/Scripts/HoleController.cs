@@ -8,13 +8,6 @@ public class HoleController : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (transform.tag == "Goal")
-		{
-			ExecuteGoal();
-		}
-		if (transform.tag == "Hole") {
-			ExecuteHole();
-		}
 		// get and disable the collider on the line
 		GameObject.Find("Line").GetComponent<EdgeCollider2D>().enabled = false;
 		// set the player transform
@@ -25,6 +18,15 @@ public class HoleController : MonoBehaviour {
 		} else {
 			// push the ball behind right away
             PlayerFallThrough();
+        }
+
+        if (transform.tag == "Goal")
+        {
+            ExecuteGoal();
+        }
+        if (transform.tag == "Hole")
+        {
+            ExecuteHole();
         }
 	}
 
@@ -38,6 +40,7 @@ public class HoleController : MonoBehaviour {
     void ExecuteGoal()
     {
         Debug.Log("WIN!");
+		GameStatus.currentLevel += 0.1f;
     }
     
 	void ExecuteHole()
