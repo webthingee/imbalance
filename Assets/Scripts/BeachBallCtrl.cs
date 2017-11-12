@@ -8,6 +8,7 @@ public class BeachBallCtrl : MonoBehaviour
 	public bool is3D;
 	public float rotationSpeed = 0.1f;
 	private Rigidbody2D beachBallrb;
+    public bool goal = false;
 
 	void Awake () {
         beachBallrb = GetComponent<Rigidbody2D>();
@@ -19,10 +20,28 @@ public class BeachBallCtrl : MonoBehaviour
 		}
 
         if (transform.position.y <= GameManager.GetBottomLeft.y) {
-            //@TODO move this to game manager
-            SceneManager.LoadScene("Level_A_" + GameStatus.currentLevel);
+            GameStatus gameStatus = GameObject.Find("GameStatus").GetComponent<GameStatus>();
+            if (gameStatus == null) {
+                Debug.LogError("GameStatus GameObject is not available");
+                return;
+            }
+            
+            if (goal) {
+                gameStatus.CurrentLevel += 1;
+                goal = false;
+            }
+
+            GameObject.Find("Game Master").GetComponent<GameManager>().LoadNewLevel(gameStatus.levelSceneName + gameStatus.CurrentLevel.ToString());
         }
 	}
+
+    void SameLevel () {
+
+    }
+
+    void NextLevel () {
+
+    }
 
 	void Add3DRotation () {
         // positive is moving RIGHT; negitive is moving LEFT

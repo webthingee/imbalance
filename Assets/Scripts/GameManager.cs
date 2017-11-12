@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour 
 {
+    [Header("Game Settings")]
+    private GameStatus gameStatus;
     [Header("Gear Settings")]
     [SerializeField] public float gearStartPosition;
     [SerializeField] private float gearMoveSpeed = 5f;
@@ -16,7 +18,6 @@ public class GameManager : MonoBehaviour
     [Header("Constants")]
     [SerializeField] static Vector3 topLeft;
     [SerializeField] static Vector3 bottomLeft;
-
 
     public float GearMoveSpeed
 	{
@@ -60,15 +61,15 @@ public class GameManager : MonoBehaviour
 
 	void Start () 
 	{
-		print("game started");
+        print("game started");
         topLeft = TopLeft();
         bottomLeft = BottomLeft();
         GameObject.Find("Table").GetComponent<TableManager>().SetTableSize();
     }
 
-    void LoadNewLevel (string level)
+    public void LoadNewLevel (string _level)
     {
-        SceneManager.LoadScene("Level_A_" + GameStatus.currentLevel + 0.1f);
+        SceneManager.LoadScene(_level);
     }
 
     Vector3 TopLeft()

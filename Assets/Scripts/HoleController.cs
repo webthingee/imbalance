@@ -22,7 +22,7 @@ public class HoleController : MonoBehaviour {
 
         if (transform.tag == "Goal")
         {
-            ExecuteGoal();
+			ExecuteGoal();
         }
         if (transform.tag == "Hole")
         {
@@ -33,14 +33,13 @@ public class HoleController : MonoBehaviour {
 	// Pushes the ball back behind the table so it appears to fall through
 	void PlayerFallThrough ()
 	{
-		
 		plyer.position = new Vector3(plyer.transform.position.x, plyer.transform.position.y, 5);
 	}
 
     void ExecuteGoal()
     {
         Debug.Log("WIN!");
-		GameStatus.currentLevel += 0.1f;
+        plyer.GetComponent<BeachBallCtrl>().goal = true;
     }
     
 	void ExecuteHole()

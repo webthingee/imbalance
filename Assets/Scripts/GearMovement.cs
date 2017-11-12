@@ -27,10 +27,8 @@ public class GearMovement : MonoBehaviour
         rotationSpeed = gm.GearRotationSpeed;
         spinSensitivity = gm.GearSpinSensitivity;
 
-        // if (isRight)
-        // {
-            transform.position = new Vector3 (transform.position.x, gearStart, transform.position.z);
-        // }
+        //where to start gears
+        transform.position = new Vector3 (transform.position.x, gearStart, transform.position.z);
     }
 
     void FixedUpdate ()
