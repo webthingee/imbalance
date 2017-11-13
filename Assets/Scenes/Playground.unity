@@ -1430,6 +1430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   is3D: 1
   rotationSpeed: 0.005
+  goal: 0
 --- !u!1 &1190372498
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,10 +2404,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b565909ed303d46e0810d21de188befa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gearStartPosition: -6
   gearMoveSpeed: 5
+  mobileMoveSpeed: 10
   gearRotationSpeed: 2
   gearSpinSensitivity: 0
-  verticalScrollSpeed: 0.26
+  verticalScrollSpeed: 0
 --- !u!1 &2145667342
 GameObject:
   m_ObjectHideFlags: 0

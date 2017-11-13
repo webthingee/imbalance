@@ -74,7 +74,20 @@ public class GameManager : MonoBehaviour
 
     public void LoadNewLevel (string _level)
     {
-        SceneManager.LoadScene(_level);
+        List<string> scenesInBuild = new List<string>();
+        for (int i = 1; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+            int lastSlash = scenePath.LastIndexOf("/");
+            scenesInBuild.Add(scenePath.Substring(lastSlash + 1, scenePath.LastIndexOf(".") - lastSlash - 1));
+        }
+        
+        if (scenesInBuild.Contains(_level)) 
+        {
+            SceneManager.LoadScene(_level);
+        } else {
+            SceneManager.LoadScene("Playground");
+        }
     }
 
     Vector3 TopLeft()
