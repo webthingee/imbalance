@@ -61,15 +61,19 @@ public class GameManager : MonoBehaviour
 
 	void Start () 
 	{
-        print("game started");
+        GameStatus gameStatus = GameObject.Find("Game Status").GetComponent<GameStatus>();
+        if (gameStatus == null)
+        {
+            Debug.LogError("Game Status GameObject is not available");
+            return;
+        }
+
+        print("game enable");
         topLeft = TopLeft();
         bottomLeft = BottomLeft();
         GameObject.Find("Table").GetComponent<TableManager>().SetTableSize();
-    }
 
-    void Update ()
-    {
-    
+        gameStatus.ScoreChanged();
     }
 
     public void LoadNewLevel (string _level)
