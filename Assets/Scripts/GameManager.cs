@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float gearRotationSpeed = 2f;
     [SerializeField] [Range(0, 1)] private float gearSpinSensitivity;
     [Header("Field Settings")]
-    [SerializeField] [Range(-1, 1)] private float verticalScrollSpeed;
+    [SerializeField] [Range(-20, 20)] private int verticalScrollSpeed;
     [Header("Constants")]
     [SerializeField] static Vector3 topLeft;
     [SerializeField] static Vector3 bottomLeft;
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         set { gearSpinSensitivity = value; }
     }
 
-    public float VerticalScrollSpeed
+    public int VerticalScrollSpeed
     {
         get { return verticalScrollSpeed; }
         set { verticalScrollSpeed = value; }

@@ -22,10 +22,11 @@ public class BeachBallCtrl : MonoBehaviour
 			Add3DRotation();
 		}
 
+        // execute loading scene when ball passes below screen
         if (transform.position.y <= GameManager.GetBottomLeft.y) {
-            GameStatus gameStatus = GameObject.Find("GameStatus").GetComponent<GameStatus>();
+            GameStatus gameStatus = GameObject.Find("Game Status").GetComponent<GameStatus>();
             if (gameStatus == null) {
-                Debug.LogError("GameStatus GameObject is not available");
+                Debug.LogError("Game Status GameObject is not available");
                 return;
             }
             

@@ -17,6 +17,6 @@ public class ScrollController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		transform.Translate(0, gm.VerticalScrollSpeed, 0);
+		transform.Translate(Vector2.up * (gm.VerticalScrollSpeed * .001f));
 	}
 }
