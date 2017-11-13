@@ -10,12 +10,15 @@ public class BeachBallCtrl : MonoBehaviour
 	private Rigidbody2D beachBallrb;
     public bool goal = false;
 
-	void Awake () {
+	void Awake () 
+    {
         beachBallrb = GetComponent<Rigidbody2D>();
     }
 
-	void FixedUpdate () {
-		if (is3D) {
+	void FixedUpdate () 
+    {	
+        // consistently add rotation as ball moves
+        if (is3D) {
 			Add3DRotation();
 		}
 
@@ -35,20 +38,11 @@ public class BeachBallCtrl : MonoBehaviour
         }
 	}
 
-    void SameLevel () {
-
-    }
-
-    void NextLevel () {
-
-    }
-
 	void Add3DRotation () {
         // positive is moving RIGHT; negitive is moving LEFT
         var localVelocity = transform.InverseTransformDirection(beachBallrb.velocity);
 
-        // Add some x and y rotation to the beach ball
-        // @TODO set the rotation to be a bit more random between 0.01 and 0.2 ?
+        // Add rotation to the beach ball
         if (localVelocity.x > 0)
         {
             transform.Rotate(localVelocity.x, Random.Range(rotationSpeed, rotationSpeed*2), 0);

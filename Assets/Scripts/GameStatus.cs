@@ -8,15 +8,28 @@ public class GameStatus : MonoBehaviour {
     [SerializeField] private int currentLevel = 0;
     [SerializeField] public string levelSceneName = "Level_A_0.";
 
-    void Awake ()
+    static GameStatus onlyGameStatus; // singleton
+
+    public int CurrentLives
     {
-        DontDestroyOnLoad(transform.gameObject);
+        get { return currentLives; }
+        set { currentLives = value; }
     }
-    
+
     public int CurrentLevel
     {
         get { return currentLevel; }
         set { currentLevel = value; }
     }
 
+    void Awake ()
+    {
+        // set singleton
+        if (onlyGameStatus != null) {
+            Destroy(this.gameObject);
+            return;
+        }
+        onlyGameStatus = this;
+        DontDestroyOnLoad(this.gameObject);
+    }
 }

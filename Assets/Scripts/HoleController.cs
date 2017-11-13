@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class HoleController : MonoBehaviour {
 
-	Transform plyer;
+	Transform player;
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
 		// get and disable the collider on the line
 		GameObject.Find("Line").GetComponent<EdgeCollider2D>().enabled = false;
 		// set the player transform
-		plyer = GameObject.Find("Player").GetComponent<Transform>();
-		if (plyer.position.y > transform.position.y) {
+		player = GameObject.Find("Player").GetComponent<Transform>();
+		if (player.position.y > transform.position.y) {
 			// wait before pushing the ball behind
 			Invoke("PlayerFallThrough", .1f);
 		} else {
@@ -33,17 +33,18 @@ public class HoleController : MonoBehaviour {
 	// Pushes the ball back behind the table so it appears to fall through
 	void PlayerFallThrough ()
 	{
-		plyer.position = new Vector3(plyer.transform.position.x, plyer.transform.position.y, 5);
+		player.position = new Vector3(player.transform.position.x, player.transform.position.y, 5);
 	}
 
     void ExecuteGoal()
     {
         Debug.Log("WIN!");
-        plyer.GetComponent<BeachBallCtrl>().goal = true;
+        player.GetComponent<BeachBallCtrl>().goal = true;
     }
     
 	void ExecuteHole()
     {
         Debug.Log("FAIL!");
+        player.GetComponent<BeachBallCtrl>().goal = false;
     }
 }

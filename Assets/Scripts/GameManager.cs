@@ -67,6 +67,11 @@ public class GameManager : MonoBehaviour
         GameObject.Find("Table").GetComponent<TableManager>().SetTableSize();
     }
 
+    void Update ()
+    {
+    
+    }
+
     public void LoadNewLevel (string _level)
     {
         SceneManager.LoadScene(_level);
