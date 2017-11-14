@@ -24,51 +24,46 @@ public class GameManager : MonoBehaviour
 		get { return gearMoveSpeed; }
 		set { gearMoveSpeed = value; }
 	}
-
     public float MobileMoveSpeed
     {
         get { return mobileMoveSpeed; }
         set { mobileMoveSpeed = value; }
     }
-
     public float GearRotationSpeed
     {
         get { return gearRotationSpeed; }
         set { gearRotationSpeed = value; }
     }
-
     public float GearSpinSensitivity
     {
         get { return gearSpinSensitivity; }
         set { gearSpinSensitivity = value; }
     }
-
     public int VerticalScrollSpeed
     {
         get { return verticalScrollSpeed; }
         set { verticalScrollSpeed = value; }
     }
-
     public static Vector3 GetTopLeft
     {
         get { return topLeft; }
     }
-    
     public static Vector3 GetBottomLeft
     {
         get { return bottomLeft; }
     }
 
-	void Start () 
-	{
+	void Awake ()
+    {
         GameStatus gameStatus = GameObject.Find("Game Status").GetComponent<GameStatus>();
         if (gameStatus == null)
         {
             Debug.LogError("Game Status GameObject is not available");
             return;
         }
-
-        print("game enable");
+    }
+    void Start () 
+	{
         topLeft = TopLeft();
         bottomLeft = BottomLeft();
         GameObject.Find("Table").GetComponent<TableManager>().SetTableSize();
@@ -85,7 +80,7 @@ public class GameManager : MonoBehaviour
             int lastSlash = scenePath.LastIndexOf("/");
             scenesInBuild.Add(scenePath.Substring(lastSlash + 1, scenePath.LastIndexOf(".") - lastSlash - 1));
         }
-        
+
         if (scenesInBuild.Contains(_level)) 
         {
             SceneManager.LoadScene(_level);
@@ -94,13 +89,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    Vector3 TopLeft()
+    Vector3 TopLeft ()
     {
         return Camera.main.ScreenToWorldPoint(new Vector3(0, Camera.main.pixelHeight, 0));
-        //http://answers.unity3d.com/questions/501893/calculating-2d-camera-bounds.html
     }
 
-    Vector3 BottomLeft()
+    Vector3 BottomLeft ()
     {
         return Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
     }

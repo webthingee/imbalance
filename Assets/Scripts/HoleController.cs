@@ -12,6 +12,7 @@ public class HoleController : MonoBehaviour {
 		GameObject.Find("Line").GetComponent<EdgeCollider2D>().enabled = false;
 		// set the player transform
 		player = GameObject.Find("Player").GetComponent<Transform>();
+		
 		if (player.position.y > transform.position.y) {
 			// wait before pushing the ball behind
 			Invoke("PlayerFallThrough", .1f);
@@ -20,12 +21,11 @@ public class HoleController : MonoBehaviour {
             PlayerFallThrough();
         }
 
-        if (transform.tag == "Goal")
-        {
+        if (transform.tag == "Goal") {
 			ExecuteGoal();
         }
-        if (transform.tag == "Hole")
-        {
+        
+		if (transform.tag == "Hole") {
             ExecuteHole();
         }
 	}
@@ -36,15 +36,15 @@ public class HoleController : MonoBehaviour {
 		player.position = new Vector3(player.transform.position.x, player.transform.position.y, 5);
 	}
 
-    void ExecuteGoal()
+    void ExecuteGoal ()
     {
-        Debug.Log("WIN!");
+        Debug.Log("GOAL!");
         player.GetComponent<BeachBallCtrl>().goal = true;
     }
     
-	void ExecuteHole()
+	void ExecuteHole ()
     {
-        Debug.Log("FAIL!");
+        Debug.Log("HOLE!");
         player.GetComponent<BeachBallCtrl>().goal = false;
     }
 }

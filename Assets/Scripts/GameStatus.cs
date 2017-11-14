@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class GameStatus : MonoBehaviour {
 
-    [SerializeField] private int currentScore;
-    [SerializeField] private int currentLives;
-    [SerializeField] private int currentLevel;
+    [SerializeField] private int currentScore = 0;
+    [SerializeField] private int currentLives = 3;
+    [SerializeField] private int currentLevel = 0;
     [SerializeField] public string levelSceneName = "Level_A_0.";
 
     static GameStatus onlyGameStatus; // singleton
 
     public delegate void ChangeScore(int value);
-    public static ChangeScore changeScoreDelegate;
+    public static event ChangeScore changeScoreDelegate;
 
     public int CurrentScore
     {
