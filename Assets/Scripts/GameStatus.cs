@@ -36,8 +36,7 @@ public class GameStatus : MonoBehaviour {
 
     void Awake ()
     {
-        // set singleton
-        if (onlyGameStatus != null) {
+        if (onlyGameStatus != null) { // set singleton
             Destroy(this.gameObject);
             return;
         }

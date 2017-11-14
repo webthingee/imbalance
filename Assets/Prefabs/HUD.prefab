@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222443851371030268}
   - component: {fileID: 114227776755353126}
   m_Layer: 5
-  m_Name: Lives (1)
+  m_Name: Lives
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,7 +194,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 99
 --- !u!222 &222443851371030268
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -53,22 +53,36 @@ public class GameManager : MonoBehaviour
         get { return bottomLeft; }
     }
 
-	void Awake ()
+    void Awake ()
     {
-        GameStatus gameStatus = GameObject.Find("Game Status").GetComponent<GameStatus>();
+        gameStatus = GameObject.Find("Game Status").GetComponent<GameStatus>();
         if (gameStatus == null)
         {
             Debug.LogError("Game Status GameObject is not available");
             return;
         }
     }
+
+    void OnEnable ()
+    {
+        BeachBallCtrl.levelSuccessDelegate += LevelSuccess;
+        BeachBallCtrl.levelFailDelegate += LevelFail;
+    }
+
     void Start () 
-	{
+	{   
         topLeft = TopLeft();
         bottomLeft = BottomLeft();
         GameObject.Find("Table").GetComponent<TableManager>().SetTableSize();
 
         gameStatus.ScoreChanged();
+        Debug.Log(gameStatus.levelSceneName);
+    }
+
+    void OnDisable ()
+    {
+        BeachBallCtrl.levelSuccessDelegate -= LevelSuccess;
+        BeachBallCtrl.levelFailDelegate -= LevelFail;    
     }
 
     public void LoadNewLevel (string _level)
@@ -81,12 +95,25 @@ public class GameManager : MonoBehaviour
             scenesInBuild.Add(scenePath.Substring(lastSlash + 1, scenePath.LastIndexOf(".") - lastSlash - 1));
         }
 
+        Debug.Log(_level);
+
         if (scenesInBuild.Contains(_level)) 
         {
             SceneManager.LoadScene(_level);
         } else {
             SceneManager.LoadScene("Playground");
         }
+    }
+
+    void LevelFail ()
+    {   
+        LoadNewLevel(gameStatus.levelSceneName + gameStatus.CurrentLevel.ToString());
+    }
+
+    void LevelSuccess ()
+    {
+        gameStatus.CurrentLevel += 1;
+        LoadNewLevel(gameStatus.levelSceneName + gameStatus.CurrentLevel.ToString());
     }
 
     Vector3 TopLeft ()

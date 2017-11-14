@@ -10,6 +10,12 @@ public class BeachBallCtrl : MonoBehaviour
 	private Rigidbody2D beachBallrb;
     public bool goal = false;
 
+    public delegate void LevelSuccessCondition();
+    public static event LevelSuccessCondition levelSuccessDelegate;
+    
+    public delegate void LevelFailCondition();
+    public static event LevelFailCondition levelFailDelegate;
+
 	void Awake () 
     {
         beachBallrb = GetComponent<Rigidbody2D>();
@@ -24,18 +30,13 @@ public class BeachBallCtrl : MonoBehaviour
 
         // execute loading scene when ball passes below screen
         if (transform.position.y <= GameManager.GetBottomLeft.y) {
-            GameStatus gameStatus = GameObject.Find("Game Status").GetComponent<GameStatus>();
-            if (gameStatus == null) {
-                Debug.LogError("Game Status GameObject is not available");
-                return;
-            }
-            
             if (goal) {
-                gameStatus.CurrentLevel += 1;
+                levelSuccessDelegate();
                 goal = false;
             }
-
-            GameObject.Find("Game Master").GetComponent<GameManager>().LoadNewLevel(gameStatus.levelSceneName + gameStatus.CurrentLevel.ToString());
+            else { 
+                levelFailDelegate(); 
+            }
         }
 	}
 
