@@ -5,8 +5,9 @@ using UnityEngine;
 public class TableManager : MonoBehaviour 
 {
 
-	void Start () {
-        transform.localScale = new Vector2(Mathf.Abs(GameManager.GetTopLeft.x * 1.9f), 22);
+	void Start () 
+	{
+		SetTableSize();
     }
 	
 	public void SetTableSize () 

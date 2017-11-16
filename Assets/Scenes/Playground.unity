@@ -583,8 +583,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentScore: 0
   currentLives: 3
-  currentLevel: 0
+  currentLevel: -1
   levelSceneName: Level_A_0.
+  gameLevels: []
 --- !u!4 &542517734
 Transform:
   m_ObjectHideFlags: 0
@@ -2772,6 +2773,7 @@ MonoBehaviour:
   gearRotationSpeed: 4
   gearSpinSensitivity: 0.5
   verticalScrollSpeed: 0
+  scenesInBuild: []
 --- !u!114 &1938235539 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114227776755353126, guid: d3e7ac33869204e12a6c2713cef5f405,

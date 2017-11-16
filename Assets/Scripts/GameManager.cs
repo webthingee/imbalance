@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour 
 {
-    [Header("Game Settings")]
     private GameStatus gameStatus;
     [Header("Gear Settings")]
     [SerializeField] public float gearStartPosition;
@@ -18,6 +17,9 @@ public class GameManager : MonoBehaviour
     [Header("Constants")]
     [SerializeField] static Vector3 topLeft;
     [SerializeField] static Vector3 bottomLeft;
+
+    [SerializeField] public List<string> scenesInBuild = new List<string>();
+
 
     public float GearMoveSpeed
 	{
@@ -76,7 +78,18 @@ public class GameManager : MonoBehaviour
         GameObject.Find("Table").GetComponent<TableManager>().SetTableSize();
 
         gameStatus.ScoreChanged();
-        Debug.Log(gameStatus.levelSceneName);
+
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+
+            if (scenePath.Contains("00"))
+            {
+                int lastSlash = scenePath.LastIndexOf("/");
+                string levelName = scenePath.Substring(lastSlash + 1, scenePath.LastIndexOf(".") - lastSlash - 1);
+                scenesInBuild.Add(levelName);
+            }
+        }
     }
 
     void OnDisable ()
@@ -85,35 +98,30 @@ public class GameManager : MonoBehaviour
         BeachBallCtrl.levelFailDelegate -= LevelFail;    
     }
 
-    public void LoadNewLevel (string _level)
+    public void LoadLevel (int _level)
     {
-        List<string> scenesInBuild = new List<string>();
-        for (int i = 1; i < SceneManager.sceneCountInBuildSettings; i++)
-        {
-            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
-            int lastSlash = scenePath.LastIndexOf("/");
-            scenesInBuild.Add(scenePath.Substring(lastSlash + 1, scenePath.LastIndexOf(".") - lastSlash - 1));
-        }
-
+        Debug.Log(gameStatus.gameLevels.Count);
         Debug.Log(_level);
 
-        if (scenesInBuild.Contains(_level)) 
+        if (_level < scenesInBuild.Count)
         {
-            SceneManager.LoadScene(_level);
-        } else {
+            SceneManager.LoadScene(scenesInBuild[_level]);
+        }
+        else
+        {
             SceneManager.LoadScene("Playground");
         }
     }
 
     void LevelFail ()
-    {   
-        LoadNewLevel(gameStatus.levelSceneName + gameStatus.CurrentLevel.ToString());
+    {
+        LoadLevel(gameStatus.CurrentLevel);
     }
 
     void LevelSuccess ()
     {
         gameStatus.CurrentLevel += 1;
-        LoadNewLevel(gameStatus.levelSceneName + gameStatus.CurrentLevel.ToString());
+        LoadLevel(gameStatus.CurrentLevel);
     }
 
     Vector3 TopLeft ()
