@@ -33,8 +33,11 @@ public class LevelSelection : MonoBehaviour
 	string UpdateText ()
 	{
 		string _text = "";
-		_text += "You have just completed level " + gameStatus.CurrentLevel.ToString();
-		_text += "\n Your highest level completed is " + gameStatus.HighestLevel.ToString();
+		if (gameStatus.CurrentLevel > 0) {
+			_text += "You have just completed level " + gameStatus.CurrentLevel.ToString();
+			_text += "\n";
+			_text += "Your highest level completed is " + gameStatus.HighestLevel.ToString();
+		}
 
 		return _text;
 	}
@@ -46,17 +49,22 @@ public class LevelSelection : MonoBehaviour
 
     void EnableAvailableLevelButtons()
     {
-        Button[] lvlBtns = GetComponentsInChildren<Button>();
-        foreach (Button btn in lvlBtns)
+        // get all the buttons
+		Button[] _lvlBtns = GetComponentsInChildren<Button>();
+        
+		foreach (Button _btn in _lvlBtns)
         {
-            Debug.Log("h " + gameStatus.HighestLevel + 1);
-            if (int.Parse(btn.GetComponentInChildren<Text>().text) <= gameStatus.HighestLevel + 1)
+            // disable all
+			_btn.interactable = false;
+            
+			// check the level text against the hightst level completed
+			if (int.Parse(_btn.GetComponentInChildren<Text>().text) <= gameStatus.HighestLevel + 1)
             {
-                btn.interactable = true;
+                _btn.interactable = true;
             }
         }
     }
-	
+
     // for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
     // {
     //     string scenePath = SceneUtility.GetScenePathByBuildIndex(i);

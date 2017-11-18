@@ -39,16 +39,16 @@ public class BeachBallCtrl : MonoBehaviour
 
 	void Add3DRotation () {
         // positive is moving RIGHT; negitive is moving LEFT
-        var localVelocity = transform.InverseTransformDirection(beachBallrb.velocity);
+        var _localVelocity = transform.InverseTransformDirection(beachBallrb.velocity);
 
         // Add rotation to the beach ball
-        if (localVelocity.x > 0)
+        if (_localVelocity.x > 0)
         {
-            transform.Rotate(localVelocity.x, Random.Range(rotationSpeed, rotationSpeed*2), 0);
+            transform.Rotate(_localVelocity.x, Random.Range(rotationSpeed, rotationSpeed*2), 0);
         }
-        if (localVelocity.x < 0)
+        if (_localVelocity.x < 0)
         {
-            transform.Rotate(-localVelocity.x, -rotationSpeed, 0);
+            transform.Rotate(-_localVelocity.x, -rotationSpeed, 0);
         }
 	}
 }

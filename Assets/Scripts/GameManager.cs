@@ -88,15 +88,15 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().path.Contains("Levels"))
         {
+            // @TODO not sure how well this works in Unity
             try
             {
                 currentSceneInt = int.Parse(SceneManager.GetActiveScene().name);
             }
-            catch (Exception e)
+            catch (Exception _e)
             {
-                Debug.LogError(e.Message);
+                Debug.LogError(_e.Message);
             }            
-            //Debug.Log(currentScene);
         }
     }
 

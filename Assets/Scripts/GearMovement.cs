@@ -51,28 +51,28 @@ public class GearMovement : MonoBehaviour
 
     void KeepInBounds ()
     {
-        float stopAtTop = GameManager.GetTopLeft.y - yBuffer;
-        float stopAtBottom = GameManager.GetBottomLeft.y + yBuffer;
-        float stopAtSide = GameManager.GetTopLeft.x + xBuffer;
+        float _stopAtTop = GameManager.GetTopLeft.y - yBuffer;
+        float _stopAtBottom = GameManager.GetBottomLeft.y + yBuffer;
+        float _stopAtSide = GameManager.GetTopLeft.x + xBuffer;
 
         if (isRight)
         {
-            stopAtSide = -stopAtSide;
+            _stopAtSide = -_stopAtSide;
         }
 
-        if (transform.position.x != stopAtSide)
+        if (transform.position.x != _stopAtSide)
         {
-            transform.position = new Vector2(stopAtSide, transform.position.y);
+            transform.position = new Vector2(_stopAtSide, transform.position.y);
         }
 
-        if (transform.position.y > stopAtTop)
+        if (transform.position.y > _stopAtTop)
         {
-            transform.position = new Vector2(stopAtSide, stopAtTop);
+            transform.position = new Vector2(_stopAtSide, _stopAtTop);
         }
 
-        if (transform.position.y < stopAtBottom)
+        if (transform.position.y < _stopAtBottom)
         {
-            transform.position = new Vector2(stopAtSide, stopAtBottom);
+            transform.position = new Vector2(_stopAtSide, _stopAtBottom);
         }
     }
 
