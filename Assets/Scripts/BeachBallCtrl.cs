@@ -32,7 +32,6 @@ public class BeachBallCtrl : MonoBehaviour
         if (transform.position.y <= GameManager.GetBottomLeft.y) {
             if (goal) {
                 levelSuccessDelegate();
-                goal = false;
             }
             else { 
                 levelFailDelegate(); 

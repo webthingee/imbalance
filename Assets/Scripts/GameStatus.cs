@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameStatus : MonoBehaviour {
@@ -8,8 +6,8 @@ public class GameStatus : MonoBehaviour {
     [SerializeField] private int currentScore = 0;
     [SerializeField] private int currentLives = 3;
     [SerializeField] private int currentLevel = 0;
-    [SerializeField] public string levelSceneName = "Level_A_0.";
-    [SerializeField] public List<string> gameLevels = new List<string>();
+    [SerializeField] private int highestLevel = 0;
+    //[SerializeField] public List<string> gameLevels = new List<string>();
 
 
     static GameStatus onlyGameStatus; // singleton
@@ -35,6 +33,11 @@ public class GameStatus : MonoBehaviour {
     {
         get { return currentLevel; }
         set { currentLevel = value; }
+    }
+    public int HighestLevel
+    {
+        get { return highestLevel; }
+        set { highestLevel = value; }
     }
 
     void Awake ()

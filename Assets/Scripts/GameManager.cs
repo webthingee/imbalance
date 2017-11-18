@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour 
 {
     private GameStatus gameStatus;
+    [SerializeField] private int currentSceneInt;
     [Header("Gear Settings")]
     [SerializeField] public float gearStartPosition;
     [SerializeField] private float gearMoveSpeed = 5f;
@@ -17,9 +17,6 @@ public class GameManager : MonoBehaviour
     [Header("Constants")]
     [SerializeField] static Vector3 topLeft;
     [SerializeField] static Vector3 bottomLeft;
-
-    [SerializeField] public List<string> scenesInBuild = new List<string>();
-
 
     public float GearMoveSpeed
 	{
@@ -78,18 +75,7 @@ public class GameManager : MonoBehaviour
         GameObject.Find("Table").GetComponent<TableManager>().SetTableSize();
 
         gameStatus.ScoreChanged();
-
-        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
-        {
-            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
-
-            if (scenePath.Contains("00"))
-            {
-                int lastSlash = scenePath.LastIndexOf("/");
-                string levelName = scenePath.Substring(lastSlash + 1, scenePath.LastIndexOf(".") - lastSlash - 1);
-                scenesInBuild.Add(levelName);
-            }
-        }
+        GetCurrentScene();
     }
 
     void OnDisable ()
@@ -98,30 +84,35 @@ public class GameManager : MonoBehaviour
         BeachBallCtrl.levelFailDelegate -= LevelFail;    
     }
 
-    public void LoadLevel (int _level)
+    void GetCurrentScene ()
     {
-        Debug.Log(gameStatus.gameLevels.Count);
-        Debug.Log(_level);
-
-        if (_level < scenesInBuild.Count)
+        if (SceneManager.GetActiveScene().path.Contains("Levels"))
         {
-            SceneManager.LoadScene(scenesInBuild[_level]);
-        }
-        else
-        {
-            SceneManager.LoadScene("Playground");
+            try
+            {
+                currentSceneInt = int.Parse(SceneManager.GetActiveScene().name);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }            
+            //Debug.Log(currentScene);
         }
     }
 
     void LevelFail ()
     {
-        LoadLevel(gameStatus.CurrentLevel);
+        gameStatus.CurrentLevel = currentSceneInt;
+        SceneManager.LoadScene(currentSceneInt);
     }
 
     void LevelSuccess ()
     {
-        gameStatus.CurrentLevel += 1;
-        LoadLevel(gameStatus.CurrentLevel);
+        gameStatus.CurrentLevel = currentSceneInt;
+        if (currentSceneInt >= gameStatus.HighestLevel) {
+            gameStatus.HighestLevel = currentSceneInt; 
+        }    
+        SceneManager.LoadScene("LevelManager");
     }
 
     Vector3 TopLeft ()
