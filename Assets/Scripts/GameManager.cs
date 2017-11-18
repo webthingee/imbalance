@@ -103,7 +103,8 @@ public class GameManager : MonoBehaviour
     void LevelFail ()
     {
         gameStatus.CurrentLevel = currentSceneInt;
-        SceneManager.LoadScene(currentSceneInt);
+        //SceneManager.LoadScene(currentSceneInt);
+        SceneManager.LoadScene("LevelManager");
     }
 
     void LevelSuccess ()
