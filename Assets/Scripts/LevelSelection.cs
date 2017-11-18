@@ -20,43 +20,14 @@ public class LevelSelection : MonoBehaviour
         }
 	}
 
-	// get all the buttons
-	// disable all
-	// enable once previous is passed
-
-
-    // public void LoadLevel (int _level)
-    // {
-    //     Debug.Log(gameStatus.gameLevels.Count);
-    //     Debug.Log(_level);
-
-    //     if (_level < scenesInLevel.Count)
-    //     {
-    //         SceneManager.LoadScene(scenesInLevel[_level]);
-    //     }
-    //     else
-    //     {
-    //         SceneManager.LoadScene("Playground");
-    //     }
-    // }
+	void OnEnable ()
+	{
+		EnableAvailableLevelButtons();
+	}
 
 	void Start ()
 	{
-        
 		gameLevelText.text = UpdateText();
-		
-		
-		// for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
-        // {
-        //     string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
-
-        //     if (scenePath.Contains("Levels"))
-        //     {
-        //         int lastSlash = scenePath.LastIndexOf("/");
-        //         string levelName = scenePath.Substring(lastSlash + 1, scenePath.LastIndexOf(".") - lastSlash - 1);
-        //         scenesInLevel.Add(levelName);
-        //     }
-        // }
 	}
 
 	string UpdateText ()
@@ -72,4 +43,29 @@ public class LevelSelection : MonoBehaviour
 	{
 		SceneManager.LoadScene(_level);
 	}
+
+    void EnableAvailableLevelButtons()
+    {
+        Button[] lvlBtns = GetComponentsInChildren<Button>();
+        foreach (Button btn in lvlBtns)
+        {
+            Debug.Log("h " + gameStatus.HighestLevel + 1);
+            if (int.Parse(btn.GetComponentInChildren<Text>().text) <= gameStatus.HighestLevel + 1)
+            {
+                btn.interactable = true;
+            }
+        }
+    }
+	
+    // for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+    // {
+    //     string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+
+    //     if (scenePath.Contains("Levels"))
+    //     {
+    //         int lastSlash = scenePath.LastIndexOf("/");
+    //         string levelName = scenePath.Substring(lastSlash + 1, scenePath.LastIndexOf(".") - lastSlash - 1);
+    //         scenesInLevel.Add(levelName);
+    //     }
+    // }
 }
