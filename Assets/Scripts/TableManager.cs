@@ -12,7 +12,7 @@ public class TableManager : MonoBehaviour
 	
 	public void SetTableSize () 
 	{
-		transform.localScale = new Vector2(Mathf.Abs(GameManager.GetTopLeft.x * 1.9f) , 22);
+		transform.localScale = new Vector2(Mathf.Abs(GameManager.GetTopLeft.x * 1.9f) , transform.localScale.y);
 	}
 
 }
